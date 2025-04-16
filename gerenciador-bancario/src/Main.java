@@ -102,9 +102,24 @@ public class Main {
                     }
                     break;
 
-                //consultar saldo
+                //consultando saldo
                 case 4:
+                    while (validando) {
+                        System.out.println("Digite o n° de sua conta:");
+                        nConta = Integer.parseInt(s.nextLine());
 
+                        if (nConta > clientes.size() - 1) {
+                            System.out.println("Número inválido.");
+                        } else {
+                            System.out.println("Conta em nome de: " + clientes.get(nConta).get(0) + ", confirma? s/n");
+                            String sn = s.nextLine();
+
+                            if (sn.equals("s")) {
+                                System.out.println("Valor em conta: R$ " + clientes.get(nConta).get(1));
+                            }
+                        }
+                        validando = false;
+                    }
                     break;
 
                 //Sair
