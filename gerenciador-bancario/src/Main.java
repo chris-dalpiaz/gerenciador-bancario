@@ -10,6 +10,8 @@ public class Main {
         ArrayList<ArrayList<Object>> clientes = new ArrayList<>();
         int nConta;
         boolean estaAtivo = true;
+        double saldoAtual;
+        String senhaAdmin = "PedrinhoGamer@123";
 
         while (estaAtivo) {
             System.out.println("Digite o n° da opção que deseja:\n" +
@@ -19,12 +21,14 @@ public class Main {
                     "4 - Consultar saldo\n" +
                     "5 - Consultar histórico de movimentações\n" +
                     "6 - Transferir entre contas\n" +
-                    "0 - Sair");
+                    "0 - Sair\n" +
+                    "99 - Admin");
             int opcao = Integer.parseInt(s.nextLine());
 
             boolean validando = true;
 
             switch (opcao) {
+                //adicionando cliente
                 case 1:
                     System.out.println("Digite o nome do cliente:");
                     String nome = s.nextLine();
@@ -43,9 +47,36 @@ public class Main {
                     System.out.println("N° da conta: " + nConta);
                     break;
 
+                //realizando depósitos
                 case 2:
                     while (validando) {
                         System.out.println("Digite o n° da conta em que deseja depositar:");
+                        nConta = Integer.parseInt(s.nextLine());
+
+                        if (nConta > clientes.size() - 1) {
+                            System.out.println("Número inválido!!!!");
+                        } else {
+                            System.out.println("Conta em nome de: " + clientes.get(nConta).get(0) + ", confirma? s/n");
+                            String sn = s.nextLine();
+
+                            if (sn.equals("s")) {
+                                System.out.println("Digite o valor a ser depositado:");
+                                double deposito = Double.parseDouble(s.nextLine());
+
+                                saldoAtual = (double) clientes.get(nConta).get(1) + deposito;
+                                clientes.get(nConta).set(1,saldoAtual);
+
+                                System.out.println("O valor de R$ " + deposito + " foi depositado com sucesso!");
+                            }
+                        }
+                        validando = false;
+                    }
+                    break;
+
+                //realizando saques
+                case 3:
+                    while (validando) {
+                        System.out.println("Digite o n° de sua conta:");
                         nConta = Integer.parseInt(s.nextLine());
 
                         if (nConta > clientes.size() - 1) {
@@ -55,23 +86,25 @@ public class Main {
                             String sn = s.nextLine();
 
                             if (sn.equals("s")) {
-                                System.out.println("Digite o valor a ser depositado:");
-                                double deposito = Double.parseDouble(s.nextLine());
+                                System.out.println("Digite o valor a ser sacado:");
+                                double saque = Double.parseDouble(s.nextLine());
 
-                                double valorAtual = (double) clientes.get(nConta).get(1) + deposito;
-                                clientes.get(nConta).set(1,valorAtual);
-
-                                System.out.println("O valor de R$ " + deposito + " foi depositado com sucesso!");
+                                if (saque > (double) clientes.get(nConta).get(1)) {
+                                    System.out.println("Valor de saque superior ao valor em conta!!!");
+                                } else {
+                                    saldoAtual = (double) clientes.get(nConta).get(1) - saque;
+                                    clientes.get(nConta).set(1, saldoAtual);
+                                    System.out.println("O valor de R$ " + saque + " foi sacado com sucesso!");
+                                }
                             }
                         }
                         validando = false;
                     }
                     break;
 
-                case 3:
-                    break;
-
+                //consultar saldo
                 case 4:
+
                     break;
 
                 //Sair
@@ -80,6 +113,17 @@ public class Main {
                     estaAtivo = false;
                     break;
 
+                case 99:
+                    System.out.println("Digite a senha de administrador:");
+                    String senhaInformada = s.nextLine();
+
+                    if (senhaInformada.equals(senhaAdmin)){
+                        System.out.println("Listagem de clientes e seu respectivo saldo:");
+                        System.out.println(clientes);
+                    } else {
+                        System.out.println("Acesso negado!!!");
+                    }
+                    break;
                 default:
                     System.out.println("Opção inválida. Tente novamente");
             }
