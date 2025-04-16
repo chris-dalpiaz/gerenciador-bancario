@@ -22,6 +22,8 @@ public class Main {
                     "0 - Sair");
             int opcao = Integer.parseInt(s.nextLine());
 
+            boolean validando = true;
+
             switch (opcao) {
                 case 1:
                     System.out.println("Digite o nome do cliente:");
@@ -42,7 +44,28 @@ public class Main {
                     break;
 
                 case 2:
+                    while (validando) {
+                        System.out.println("Digite o n° da conta em que deseja depositar:");
+                        nConta = Integer.parseInt(s.nextLine());
 
+                        if (nConta > clientes.size() - 1) {
+                            System.out.println("Número inválido.");
+                        } else {
+                            System.out.println("Conta em nome de: " + clientes.get(nConta).get(0) + ", confirma? s/n");
+                            String sn = s.nextLine();
+
+                            if (sn.equals("s")) {
+                                System.out.println("Digite o valor a ser depositado:");
+                                double deposito = Double.parseDouble(s.nextLine());
+
+                                double valorAtual = (double) clientes.get(nConta).get(1) + deposito;
+                                clientes.get(nConta).set(1,valorAtual);
+
+                                System.out.println("O valor de R$ " + deposito + " foi depositado com sucesso!");
+                            }
+                        }
+                        validando = false;
+                    }
                     break;
 
                 case 3:
