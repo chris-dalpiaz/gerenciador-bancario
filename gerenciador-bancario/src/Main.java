@@ -64,7 +64,7 @@ public class Main {
                                 double deposito = Double.parseDouble(s.nextLine());
 
                                 saldoAtual = (double) clientes.get(nConta).get(1) + deposito;
-                                clientes.get(nConta).set(1,saldoAtual);
+                                clientes.get(nConta).set(1, saldoAtual);
 
                                 System.out.println("O valor de R$ " + deposito + " foi depositado com sucesso!");
                             }
@@ -122,6 +122,55 @@ public class Main {
                     }
                     break;
 
+                //consultar histórico de movimentações
+                case 5:
+                    break;
+
+                //transferir entre contas
+                case 6:
+                    while (validando) {
+                        System.out.println("Digite o n° de sua conta:");
+                        nConta = Integer.parseInt(s.nextLine());
+
+                        if (nConta > clientes.size() - 1) {
+                            System.out.println("Número inválido.");
+                        } else {
+                            System.out.println("Conta em nome de: " + clientes.get(nConta).get(0) + ", confirma? s/n");
+                            String sn = s.nextLine();
+
+                            if (sn.equals("s")) {
+                                System.out.println("Digite o valor da transferência:");
+                                double valorTransferencia = Double.parseDouble(s.nextLine());
+
+                                System.out.println("Digite o n° da conta para depósito:");
+                                int contaDeposito = Integer.parseInt(s.nextLine());
+
+                                if (contaDeposito > clientes.size() - 1) {
+                                    System.out.println("Número inválido.");
+                                } else {
+                                    System.out.println("Conta em nome de: " + clientes.get(contaDeposito).get(0) + ", confirma? s/n");
+                                    sn = s.nextLine();
+
+                                    if (sn.equals("s")) {
+                                        //conta que está transferindo
+                                        double saldoC1 = (double) clientes.get(nConta).get(1) - valorTransferencia;
+                                        clientes.get(nConta).set(1, saldoC1);
+
+                                        //conta que recebeu transferencia
+                                        double saldoC2 = (double) clientes.get(contaDeposito).get(1) + valorTransferencia;
+                                        clientes.get(contaDeposito).set(1, saldoC2);
+
+                                        System.out.println("Realizado a transferência com sucesso!");
+                                        System.out.println(clientes.get(nConta).set(1, saldoC1));
+                                        System.out.println(clientes.get(contaDeposito).set(1, saldoC2));
+                                    }
+                                }
+                            }
+                        }
+                        validando = false;
+                    }
+                    break;
+
                 //Sair
                 case 0:
                     System.out.println("Encerrando...");
@@ -132,7 +181,7 @@ public class Main {
                     System.out.println("Digite a senha de administrador:");
                     String senhaInformada = s.nextLine();
 
-                    if (senhaInformada.equals(senhaAdmin)){
+                    if (senhaInformada.equals(senhaAdmin)) {
                         System.out.println("Listagem de clientes e seu respectivo saldo:");
                         System.out.println(clientes);
                     } else {
