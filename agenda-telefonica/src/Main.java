@@ -57,6 +57,21 @@ public class Main {
                     System.out.println("Estes são os seus contatos registrados:\n " + contatos);
                     break;
 
+                //Remover contato
+                case 4:
+                    System.out.println("Digite o nome do contato a ser removido:");
+                    nome = s.nextLine();
+
+                    for (int i = 0; i < contatos.size(); i++){
+                        if (contatos.get(i).contains(nome)){
+                            contatos.remove(i);
+                            System.out.println("Contato removido!");
+                        } else {
+                            System.out.println("Nome inválido!!");
+                        }
+                    }
+                    break;
+
                 //Sair
                 case 0:
                     System.out.println("Encerrando...");
