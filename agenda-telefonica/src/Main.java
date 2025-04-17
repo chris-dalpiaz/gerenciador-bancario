@@ -52,6 +52,11 @@ public class Main {
                     }
                     break;
 
+                //listar todos os contatos
+                case 3:
+                    System.out.println("Estes são os seus contatos registrados:\n " + contatos);
+                    break;
+
                 //Sair
                 case 0:
                     System.out.println("Encerrando...");
