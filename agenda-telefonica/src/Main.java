@@ -1,15 +1,52 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Scanner s = new Scanner(System.in);
+        //matriz contatos
+        ArrayList<ArrayList<Object>> clientes = new ArrayList<>();
+        boolean estaAtivo = true;
+        String nome, nTelefone;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        while (estaAtivo) {
+            System.out.println("Digite o n° da opção que deseja:\n" +
+                    "1 - Adicionar contato\n" +
+                    "2 - Buscar telefone por nome\n" +
+                    "3 - Listar todos os contatos\n" +
+                    "4 - Remover contato\n" +
+                    "0 - Sair");
+
+            int opcao = Integer.parseInt(s.nextLine());
+
+            switch (opcao) {
+                //adicionando contato
+                case 1:
+                    System.out.println("Digite o nome do contato:");
+                    nome = s.nextLine();
+
+                    System.out.println("Digite o n° do contato:");
+                    nTelefone = s.nextLine();
+
+                    ArrayList<Object> novoContato = new ArrayList<>();
+                    novoContato.add(nome);
+                    novoContato.add(nTelefone);
+                    clientes.add(novoContato);
+
+                    System.out.println("Cliente cadastrado com sucesso!");
+                    break;
+
+                //Sair
+                case 0:
+                    System.out.println("Encerrando...");
+                    estaAtivo = false;
+                    break;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente");
+            }
         }
     }
 }
