@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         //matriz contatos
-        ArrayList<ArrayList<Object>> clientes = new ArrayList<>();
+        ArrayList<ArrayList<Object>> contatos = new ArrayList<>();
         boolean estaAtivo = true;
         String nome, nTelefone;
 
@@ -33,9 +33,23 @@ public class Main {
                     ArrayList<Object> novoContato = new ArrayList<>();
                     novoContato.add(nome);
                     novoContato.add(nTelefone);
-                    clientes.add(novoContato);
+                    contatos.add(novoContato);
 
-                    System.out.println("Cliente cadastrado com sucesso!");
+                    System.out.println("Contato cadastrado com sucesso!");
+                    break;
+
+                //Buscar telefone por nome
+                case 2:
+                    System.out.println("Digite o nome do contato:");
+                    nome = s.nextLine();
+
+                    for (int i = 0; i < contatos.size(); i++){
+                        if (contatos.get(i).contains(nome)){
+                            System.out.println("O n° desse contato é: " + contatos.get(i).get(1));
+                        } else {
+                            System.out.println("Nome inválido!!");
+                        }
+                    }
                     break;
 
                 //Sair
