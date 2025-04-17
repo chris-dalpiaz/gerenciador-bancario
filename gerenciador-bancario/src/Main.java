@@ -39,6 +39,7 @@ public class Main {
                     ArrayList<Object> novoCliente = new ArrayList<>();
                     novoCliente.add(nome);
                     novoCliente.add(saldo);
+                    novoCliente.add(new ArrayList<>());
                     clientes.add(novoCliente);
 
                     nConta = clientes.size() - 1;
@@ -65,6 +66,7 @@ public class Main {
 
                                 saldoAtual = (double) clientes.get(nConta).get(1) + deposito;
                                 clientes.get(nConta).set(1, saldoAtual);
+                                ((ArrayList) clientes.get(nConta).get(2)).add("Realizado depósito: +R$ " + deposito);
 
                                 System.out.println("O valor de R$ " + deposito + " foi depositado com sucesso!");
                             }
@@ -94,6 +96,8 @@ public class Main {
                                 } else {
                                     saldoAtual = (double) clientes.get(nConta).get(1) - saque;
                                     clientes.get(nConta).set(1, saldoAtual);
+                                    ((ArrayList) clientes.get(nConta).get(2)).add("Realizado saque: -R$ " + saque);
+
                                     System.out.println("O valor de R$ " + saque + " foi sacado com sucesso!");
                                 }
                             }
@@ -124,6 +128,22 @@ public class Main {
 
                 //consultar histórico de movimentações
                 case 5:
+                    while (validando) {
+                        System.out.println("Digite o n° de sua conta:");
+                        nConta = Integer.parseInt(s.nextLine());
+
+                        if (nConta > clientes.size() - 1) {
+                            System.out.println("Número inválido.");
+                        } else {
+                            System.out.println("Conta em nome de: " + clientes.get(nConta).get(0) + ", confirma? s/n");
+                            String sn = s.nextLine();
+
+                            if (sn.equals("s")) {
+                                System.out.println("Seu histórico:\n" + clientes.get(nConta).get(2));
+                            }
+                        }
+                        validando = false;
+                    }
                     break;
 
                 //transferir entre contas
@@ -155,10 +175,13 @@ public class Main {
                                         //conta que está transferindo
                                         double saldoC1 = (double) clientes.get(nConta).get(1) - valorTransferencia;
                                         clientes.get(nConta).set(1, saldoC1);
+                                        ((ArrayList) clientes.get(nConta).get(2)).add("Realizado transferência: -R$ " + valorTransferencia);
 
                                         //conta que recebeu transferencia
                                         double saldoC2 = (double) clientes.get(contaDeposito).get(1) + valorTransferencia;
                                         clientes.get(contaDeposito).set(1, saldoC2);
+                                        ((ArrayList) clientes.get(contaDeposito).get(2)).add("Recebido transferência: +R$ " + valorTransferencia);
+
 
                                         System.out.println("Realizado a transferência com sucesso!");
                                         System.out.println(clientes.get(nConta).set(1, saldoC1));
